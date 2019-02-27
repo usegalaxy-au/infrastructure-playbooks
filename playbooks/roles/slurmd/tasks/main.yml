@@ -1,0 +1,6 @@
+---
+# file roles/slurmd/tasks/main.yml
+- include: install_slurmd.yml
+- include: cgroups.yml
+- meta: flush_handlers
+- include: slurmconf.yml

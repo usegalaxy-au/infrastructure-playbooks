@@ -1,0 +1,31 @@
+---
+# file roles/galaxy/tasks/galaxy_pkgs.yml
+- name: Install npm git etc that galaxy requires on "{{ hostname }}"
+  become: true
+  apt:
+          name: "{{ packages }}"
+  vars:
+          packages:
+                  - git
+                  - npm
+                  - nodejs
+- name: Uninstall cmdtest on "{{ hostname }}"
+  become: true
+  apt:
+          name: cmdtest
+          state: absent
+- name: Install Yarn GPG on "{{ hostname }}"
+  become: true
+  apt_key:
+          url: https://dl.yarnpkg.com/debian/pubkey.gpg
+          state: present
+- name: Install yarn sources file on "{{ hostname }}"
+  become: true
+  copy:
+          src: yarn.list
+          dest: /etc/apt/sources.list.d/yarn.list
+- name: Install Yarn on "{{ hostname }}"
+  become: true
+  apt:
+          name: yarn
+          update_cache: yes

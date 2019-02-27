@@ -1,0 +1,15 @@
+---
+# file roles/slurmd/handlers/main.yml
+- name: Restart slurmd
+  become: true
+  systemd:
+          name: slurmd
+          state: restarted
+- name: Update grub
+  become: true
+  command: update-grub
+- name: Reboot server
+  become: true
+  reboot:
+          reboot_timeout: 120
+          post_reboot_delay: 20

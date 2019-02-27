@@ -1,0 +1,13 @@
+---
+# file playbooks/slurm_conf.yml
+- hosts: galaxy-aust-services
+  roles:
+          - slurmctl
+- hosts:
+        - galaxy-aust-dev
+        - galaxy-aust-prod
+  roles:
+          - slurmclient
+- hosts: galaxy-aust-w1
+  roles:
+          - slurmd

@@ -1,0 +1,38 @@
+---
+# file roles/proftpd/tasks/install_configure_proftpd.yml
+- name: Install proftpd package on "{{ hostname }}"
+  become: true
+  apt:
+          name: "{{ packages }}"
+  vars:
+          packages:
+                  - proftpd
+                  - proftpd-mod-pgsql
+                  - proftpd-mod-vroot
+- name: Configuration file proftd.conf on "{{ hostname }}"
+  become: true
+  template:
+          src: proftpd.conf.tpl
+          dest: /etc/proftpd/proftpd.conf
+          owner: root
+          group: root
+          mode: 0644
+  notify: Restart proftpd
+- name: Configuration file sql.conf on "{{ hostname }}"
+  become: true
+  template:
+          src: sql.conf.tpl
+          dest: /etc/proftpd/sql.conf
+          owner: root
+          group: root
+          mode: 0600
+  notify: Restart proftpd
+- name: Configuration file modules.conf on "{{ hostname }}"
+  become: true
+  template:
+          src: modules.conf.tpl
+          dest: /etc/proftpd/modules.conf
+          owner: root
+          group: root
+          mode: 0644
+  notify: Restart proftpd

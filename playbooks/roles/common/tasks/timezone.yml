@@ -1,0 +1,6 @@
+---
+# file roles/common/tasks/timezone.yml
+- name: Set timezone to "{{ timezone }}" on "{{ hostname }}"
+  become: true
+  timezone:
+          name: "{{ timezone }}"

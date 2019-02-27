@@ -1,0 +1,26 @@
+---
+# file roles/common/tasks/os_patches.yml
+- name: Remove useless packages from the cache on "{{ hostname }}"
+  become: true
+  apt:
+    autoclean: true
+- name: Remove dependencies that are no longer required on "{{ hostname }}"
+  become: true
+  apt:
+    autoremove: true
+- name: Run the equivalent of "apt-get update" as a separate step on "{{ hostname }}"
+  become: true
+  apt:
+    update_cache: true
+- name: Update all packages to the latest version on "{{ hostname }}"
+  become: true
+  apt:
+    upgrade: dist
+- name: Install the package "net-tools" and "vim" on "{{ hostname }}"
+  become: true
+  apt:
+          name: "{{ packages }}"
+  vars:
+          packages:
+                  - net-tools
+                  - vim

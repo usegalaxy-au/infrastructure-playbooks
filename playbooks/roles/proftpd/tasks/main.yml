@@ -1,0 +1,6 @@
+---
+# file roles/proftpd/tasks/main.yml
+- include: users_groups.yml
+- include: install_configure_proftpd.yml
+- include: nfs-kernel-server.yml
+- include: exportfs.yml

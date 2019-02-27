@@ -1,0 +1,3 @@
+---
+# file roles/drmaa/tasks/main.yml
+- include: slurm_drmaa.yml

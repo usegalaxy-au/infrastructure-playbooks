@@ -1,0 +1,21 @@
+---
+# file roles/slurmd/tasks/cgroups.yml
+- name: Create cgroup.conf on "{{ hostname }}"
+  become: true
+  copy:
+          src: cgroup.conf
+          dest: /etc/slurm-llnl/cgroup.conf
+          owner: slurm
+          group: slurm
+          mode: 0644
+- name: Edit grub.conf and reboot on "{{ hostname }}"
+  become: true
+  copy:
+          src: grub
+          dest: /etc/default/grub
+          owner: root
+          group: root
+          mode: 0644
+  notify:
+          - Update grub
+          - Reboot server

@@ -1,0 +1,13 @@
+---
+# file roles/galaxy/tasks/galaxy_dirs.yml
+- name: Create /var directories for galaxy on "{{ hostname }}"
+  become: true
+  file:
+          dest: "{{ item }}"
+          state: directory
+          owner: "{{ galaxy_user[hostname] }}"
+          group: "{{ galaxy_user[hostname] }}"
+          mode: 0755
+  loop:
+          - /var/lib/galaxy
+          - /var/log/galaxy

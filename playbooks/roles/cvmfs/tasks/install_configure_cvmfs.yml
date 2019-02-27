@@ -1,0 +1,54 @@
+---
+# file roles/cvmfs/tasks/install_configure_cvmfs.yml
+- name: Ensure autofs is installed
+  become: true
+  apt:
+          name: autofs
+- name: Create cache directory for CVMFS
+  become: true
+  file:
+          path: /mnt/cvmfs_cache
+          state: directory
+          mode: 0755
+- name: Create CVMFS root directory
+  become: true
+  file:
+          path: /cvmfs
+          state: directory
+          mode: 0755
+- name: Check if cvmfs package is required
+  command: dpkg-query -W cvmfs-release
+  register: cvmfs_release_check_deb
+  failed_when: cvmfs_release_check_deb.rc > 1
+  changed_when: cvmfs_release_check_deb.rc == 1
+- name: Install debian package from URL on "{{ hostname }}"
+  become: true
+  apt:
+          deb: https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-latest_all.deb
+  when: cvmfs_release_check_deb.rc == 1
+- name: Install other cvmfs packages
+  become: true
+  apt:
+          name: "{{ packages }}"
+          update_cache: yes
+  vars:
+          packages:
+                  - cvmfs
+                  - cvmfs-config-default
+- name: Copy galaxyproject.org.conf CVMFS config file to "{{ hostname }}"
+  become: true
+  copy:
+          src: galaxyproject.org.conf
+          dest: /etc/cvmfs/domain.d/galaxyproject.org.conf
+          mode: 0644
+- name: Copy default.local file to "{{ hostname }}"
+  become: true
+  copy:
+          src: default.local
+          dest: /etc/cvmfs/default.local
+          mode: 0644
+- name: Install the keys CVMFS keys
+  become: true
+  unarchive:
+          src: keys.tar
+          dest: /etc/cvmfs/keys

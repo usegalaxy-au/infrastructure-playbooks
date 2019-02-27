@@ -1,0 +1,8 @@
+---
+# file roles/munge/handlers/main.yml
+- name: Restart munge
+  become: true
+  systemd:
+          name: munge
+          state: restarted
+

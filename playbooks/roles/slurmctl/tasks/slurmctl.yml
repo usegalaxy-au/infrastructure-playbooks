@@ -1,0 +1,30 @@
+---
+# file roles/slurmctl/tasks/slurmctl.yml
+- name: Install slurmctld package on "{{ hostname }}"
+  become: true
+  apt:
+          name: slurmctld
+- name: Create slurm.conf file on "{{ hostname }}"
+  become: true
+  template:
+          src: slurm.conf.tpl
+          dest: /etc/slurm-llnl/slurm.conf
+          mode: 0644
+          owner: slurm
+          group: slurm
+  notify: Restart slurmctld
+- name: Create slurm checkpoint directories on "{{ hostname }}"
+  become: true
+  file:
+          path: /var/lib/slurm-llnl/{{ item }}
+          state: directory
+          owner: slurm
+          group: slurm
+          mode: 0755
+  loop:
+          - job_checkpoint
+          - state_checkpoint
+  notify:
+          - Restart slurmctld
+          - Add cluster to accounting
+          - Add account to accounting

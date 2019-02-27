@@ -1,0 +1,10 @@
+---
+# file roles/postgresql_client/tasks/install_postgresql_client.yml
+- name: Install packages postgresql-client on "{{ hostname }}"
+  become: true
+  apt:
+          name: "{{ packages }}"
+  vars:
+          packages:
+                  - postgresql-client-common
+                  - postgresql-client-10

@@ -1,0 +1,6 @@
+---
+# file roles/nfs_server/tasks/nfs_server.yml
+- name: Install nfs-kernel-server package on "{{ hostname }}"
+  become: true
+  apt:
+          name: nfs-kernel-server

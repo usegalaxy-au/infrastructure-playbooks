@@ -1,0 +1,13 @@
+---
+# file roles/slurmd/tasks/install_configure_slurmd.yml
+- name: Install slurmd package on "{{ hostname }}"
+  become: true
+  apt:
+          name: slurmd
+- name: Create slurmd spool directory on "{{ hostname }}"
+  become: true
+  file:
+          path: /var/spool/slurmd
+          state: directory
+          owner: slurm
+          group: slurm

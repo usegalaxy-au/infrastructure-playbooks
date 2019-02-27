@@ -1,0 +1,15 @@
+---
+# file playbooks/galaxy_web.yml
+- hosts: galaxy-aust-prod
+  roles:
+          - common
+          - cvmfs
+          - users_groups_www
+          - galaxy
+          - docker
+          - certbot
+          - nginx
+          - drmaa
+          - munge
+          - slurmclient
+          - postgresql_client

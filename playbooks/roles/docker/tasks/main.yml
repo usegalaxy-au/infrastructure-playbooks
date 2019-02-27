@@ -1,0 +1,3 @@
+---
+# file roles/docker/tasks/main.yml
+- include: install_docker.yml

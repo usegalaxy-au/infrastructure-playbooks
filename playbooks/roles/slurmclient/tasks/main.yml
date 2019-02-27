@@ -1,0 +1,3 @@
+---
+# file roles/slurmclient/tasks/main.yml
+- include: install_configure_slurmclient.yml

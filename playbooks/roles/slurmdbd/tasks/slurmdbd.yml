@@ -1,0 +1,15 @@
+---
+# file roles/slurmdbd/tasks/slurmdbd.yml
+- name: Install slurmdbd package on "{{ hostname }}"
+  become: true
+  apt:
+          name: slurmdbd
+- name: Create slurmdbd.conf file on "{{ hostname }}"
+  become: true
+  template:
+          src: slurmdbd.conf.tpl
+          dest: /etc/slurm-llnl/slurmdbd.conf
+          mode: 0400
+          owner: slurm
+          group: slurm
+  notify: Restart slurmdbd

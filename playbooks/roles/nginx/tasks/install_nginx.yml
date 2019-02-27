@@ -1,0 +1,6 @@
+---
+# file roles/nginx/tasks/install_nginx.yml
+- name: ensure nginx is installed and at latest version
+  become: true
+  apt:
+          name:         nginx-extras

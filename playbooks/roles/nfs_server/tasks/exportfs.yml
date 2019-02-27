@@ -1,0 +1,17 @@
+---
+# file roles/nfs_server/tasks/exportfs.yml
+- name: Make sure directories exist for NFS exports on "{{ hostname }}"
+  become: true
+  file:
+          path: "{{ item.value }}"
+          state: directory
+          mode: 0775
+          owner: root
+          group: root
+  with_dict: "{{ nfs_export_dirs }}"
+- name: Configure nfs exports on "{{ hostname }}"
+  become: true
+  template:
+          src: exports.tpl
+          dest: /etc/exports
+  notify: Restart NFS kernel service

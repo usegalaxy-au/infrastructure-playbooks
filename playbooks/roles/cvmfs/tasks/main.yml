@@ -1,0 +1,3 @@
+---
+# file roles/cvmfs/tasks/main.yml
+- include: install_configure_cvmfs.yml

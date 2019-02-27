@@ -1,0 +1,6 @@
+---
+# file roles/proftpd/tasks/nfs-kernel-server.yml
+- name: Install nfs-kernel-server package on "{{ hostname }}"
+  become: true
+  apt:
+          name: nfs-kernel-server

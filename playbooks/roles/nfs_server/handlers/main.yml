@@ -1,0 +1,10 @@
+---
+# file roles/nfs_server/handlers/main.yml
+- name: Restart NFS kernel service
+  become: true
+  systemd:
+          name: nfs-kernel-server
+          state: restarted
+- name: Read sysctl values from file
+  become: true
+  command: sysctl -p

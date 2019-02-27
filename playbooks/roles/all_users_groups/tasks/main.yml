@@ -1,0 +1,3 @@
+---
+# file roles/all_users_groups/tasks/main.yml
+- include: add_galaxy_users.yml

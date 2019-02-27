@@ -1,0 +1,6 @@
+---
+# file roles/docker/tasks/install_docker.yml
+- name: Install docker.io on "{{ hostname }}"
+  become: true
+  apt:
+          name: docker.io

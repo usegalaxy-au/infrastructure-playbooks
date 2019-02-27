@@ -1,0 +1,6 @@
+---
+# file site.yml
+- import_playbook: playbooks/galaxy_services.yml
+- import_playbook: playbooks/galaxy_ftp.yml
+- import_playbook: playbooks/galaxy_web.yml
+- import_playbook: playbooks/slurm_worker.yml

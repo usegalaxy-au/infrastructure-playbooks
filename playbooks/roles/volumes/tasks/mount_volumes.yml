@@ -1,0 +1,11 @@
+---
+# file roles/volumes/tasks/mount_volumes.yml
+- name: Mount volumes on "{{ hostname }}"
+  become: true
+  mount:
+          path: "{{ item.value }}"
+          src: "/dev/{{ item.key }}"
+          fstype: xfs
+          state: mounted
+  with_dict: "{{ vol_paths }}"
+

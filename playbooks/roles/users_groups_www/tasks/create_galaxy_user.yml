@@ -1,0 +1,16 @@
+---
+# file roles/users_groups_www/tasks/create_galaxy_user.yml
+- name: Create galaxy group "{{ galaxy_user[hostname] }}" on "{{ hostname }}"
+  become: true
+  group:
+          name: "{{ galaxy_user[hostname] }}"
+          gid: "{{ galaxy_user_id[hostname] }}"
+- name: Create galaxy user "{{ galaxy_user[hostname] }}" on "{{ hostname }}"
+  become: true
+  user:
+          name: "{{ galaxy_user[hostname] }}"
+          comment: Galaxy User
+          uid: "{{ galaxy_user_id[hostname] }}"
+          group: "{{ galaxy_user[hostname] }}"
+          home: "/home/{{ galaxy_user[hostname] }}"
+          shell: /bin/bash

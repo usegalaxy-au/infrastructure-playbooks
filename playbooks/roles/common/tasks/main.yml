@@ -1,0 +1,9 @@
+---
+# file roles/common/tasks/main.yml
+- include: os_patches.yml
+- include: xfs.yml
+- include: autofs.yml
+- include: timezone.yml
+- include: hosts_file.yml
+- include: misc_pkgs.yml
+- include: alt_tmp.yml

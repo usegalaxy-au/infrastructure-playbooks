@@ -1,0 +1,21 @@
+---
+# file roles/nfs_server/tasks/optimisations.yml
+- name: NFS server optimisations systemctl
+  become: true
+  template:
+          src: sysctl.conf.tpl
+          dest: /etc/sysctl.conf
+          owner: root
+          group: root
+          mode: 0644
+  notify: Read sysctl values from file
+- name: Tweak NFS daemon numbers
+  become: true
+  template:
+          src: nfs-kernel-server.tpl
+          dest: /etc/default/nfs-kernel-server
+          owner: root
+          group: root
+          mode: 0664
+  notify: Restart NFS kernel service
+

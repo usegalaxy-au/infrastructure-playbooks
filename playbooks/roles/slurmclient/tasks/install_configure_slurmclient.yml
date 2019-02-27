@@ -1,0 +1,28 @@
+---
+# file roles/slurmclient/tasks/install_configure_slurmclient.yml
+- name: Install slurm-client package on "{{ hostname }}"
+  become: true
+  apt:
+          name: slurm-client
+- name: Create slurm.conf file
+  become: true
+  template:
+          src: slurm.conf.tpl
+          dest: /etc/slurm-llnl/slurm.conf
+- name: Install .bashrc file on "{{ hostname }}"
+  become: true
+  lineinfile:
+          path: "{{ item.dest }}"
+          insertafter: EOF
+          line: "{{ item.line }}"
+  with_items:
+          - { dest: /root/.bashrc, line: '#' }
+          - { dest: /root/.bashrc, line: '# [DNB 21-05-2018] Added some environment variables' }
+          - { dest: /root/.bashrc, line: 'export SACCT_FORMAT="jobid,jobname%30,alloccpus,elapsed,totalcpu,END,state,MaxRSS,ReqMem,NodeList"' }
+          - { dest: /root/.bashrc, line: 'export SQUEUE_FORMAT="%6i %.35j %.9T %8r %19S %.10M %.6m %.3C %.3N %.55Z"' }
+          - { dest: /root/.bashrc, line: 'export SINFO_FORMAT="%16n %.10C %.6t"' }
+          - { dest: /home/ubuntu/.bashrc, line: '#' }
+          - { dest: /home/ubuntu/.bashrc, line: '# [DNB 21-05-2018] Added some environment variables' }
+          - { dest: /home/ubuntu/.bashrc, line: 'export SACCT_FORMAT="jobid,jobname%30,alloccpus,elapsed,totalcpu,END,state,MaxRSS,ReqMem,NodeList"' }
+          - { dest: /home/ubuntu/.bashrc, line: 'export SQUEUE_FORMAT="%6i %.35j %.9T %8r %19S %.10M %.6m %.3C %.3N %.55Z"' }
+          - { dest: /home/ubuntu/.bashrc, line: 'export SINFO_FORMAT="%16n %.10C %.6t"' }

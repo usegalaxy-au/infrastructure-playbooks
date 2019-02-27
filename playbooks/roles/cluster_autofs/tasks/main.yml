@@ -1,0 +1,3 @@
+---
+# file roles/cluster_autofs/tasks/main.yml
+- include: configure_autofs.yml

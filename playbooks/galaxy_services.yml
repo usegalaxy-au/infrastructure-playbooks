@@ -1,0 +1,13 @@
+---
+# file playbooks/galaxy_services.yml
+- hosts: galaxy-aust-services
+  roles:
+          - common
+          - all_users_groups
+          - volumes
+          - nfs_server
+          - mysql
+          - munge
+          - slurmdb
+          - slurmdbd
+          - slurmctl

@@ -1,0 +1,6 @@
+---
+# file playbooks/galaxy-ftp.yml
+- hosts: galaxy-aust-ftp
+  roles:
+          - common
+          - proftpd

@@ -1,0 +1,8 @@
+---
+# file roles/proftpd/tasks/exportfs.yml
+- name: Configure nfs exports on "{{ hostname }}"
+  become: true
+  template:
+          src: exports.ftp.tpl
+          dest: /etc/exports
+  notify: Restart NFS kernel service

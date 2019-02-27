@@ -1,0 +1,13 @@
+---
+# file roles/slurmctl/handlers/main.yml
+- name: Restart slurmctld
+  become: true
+  systemd:
+          name: slurmctld
+          state: restarted
+- name: Add cluster to accounting
+  become: true
+  command: "sacctmgr -i add cluster {{ clusterName }}"
+- name: Add account to accounting
+  become: true
+  command: "sacctmgr -i add account slurm Cluster={{ clusterName }} Description='Galaxy batch system' Organization='Galaxy Australia'"

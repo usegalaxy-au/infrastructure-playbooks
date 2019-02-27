@@ -1,0 +1,5 @@
+---
+# file roles/galaxy/tasks/main.yml
+- include: galaxy_dirs.yml
+- include: galaxy_pkgs.yml
+- include: autofs.yml

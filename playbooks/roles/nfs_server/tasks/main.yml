@@ -1,0 +1,5 @@
+---
+# file roles/nfs_server/tasks/main.yml
+- include: nfs_server.yml
+- include: exportfs.yml
+- include: optimisations.yml

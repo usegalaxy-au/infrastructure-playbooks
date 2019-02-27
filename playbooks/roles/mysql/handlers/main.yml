@@ -1,0 +1,17 @@
+---
+# file roles/mysql/handlers/main.yml
+- name: Create root .my.cnf file
+  become: true
+  template:
+          src: root.my.cnf.tpl
+          dest: /root/.my.cnf
+- name: Restart mysql
+  become: true
+  systemd:
+          name: mysql
+          state: restarted
+- name: Restart apparmor
+  become: true
+  systemd:
+          name: apparmor
+          state: restarted

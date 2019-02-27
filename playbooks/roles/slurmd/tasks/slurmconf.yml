@@ -1,0 +1,9 @@
+---
+# file roles/slurmd/tasks/slurmconf.yml
+- name: Create slurm.conf file on "{{ hostname }}"
+  become: true
+  template:
+          src: slurm.conf.tpl
+          dest: /etc/slurm-llnl/slurm.conf
+  notify: Restart slurmd
+

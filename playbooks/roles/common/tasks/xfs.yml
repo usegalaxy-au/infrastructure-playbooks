@@ -1,0 +1,6 @@
+---
+# file roles/common/tasks/xfs.yml
+- name: Install package xfsprogs on "{{ hostname }}"
+  become: true
+  apt:
+          name: xfsprogs

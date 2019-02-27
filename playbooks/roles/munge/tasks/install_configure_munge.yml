@@ -1,0 +1,17 @@
+---
+# file roles/munge/tasks/install_configure_munge.yml
+# dd if=/dev/random bs=1 count=1024 >munge.key
+- name: Install the package munge on "{{ hostname }}"
+  become: true
+  apt:
+          name:  munge
+- name: Deploy the munge key on "{{ hostname }}"
+  become: true
+  copy:
+          src: munge.key
+          dest: /etc/munge/munge.key
+          mode: 0400
+          owner: munge
+          group: munge
+  notify: Restart munge
+

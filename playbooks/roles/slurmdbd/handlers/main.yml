@@ -1,0 +1,7 @@
+---
+# file roles/slurmdbd/handlers/main.yml
+- name: Restart slurmdbd
+  become: true
+  systemd:
+          name: slurmdbd
+          state: restarted

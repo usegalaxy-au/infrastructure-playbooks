@@ -1,0 +1,11 @@
+---
+# file roles/volumes/tasks/create_mount_points.yml
+- name: Create mount points for volumes on "{{ hostname }}"
+  become: true
+  file:
+          path: "{{ item.value }}"
+          state: directory
+          mode: 0775
+          owner: root
+          group: root
+  with_dict: "{{ vol_paths }}"

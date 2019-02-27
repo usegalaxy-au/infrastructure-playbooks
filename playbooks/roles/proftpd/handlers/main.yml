@@ -1,0 +1,13 @@
+---
+# file roles/proftpd/handlers/main.yml
+- name: Restart proftpd
+  become: true
+  systemd:
+          name: proftpd
+          state: restarted
+- name: Restart NFS kernel service
+  become: true
+  systemd:
+          name: nfs-kernel-server
+          state: restarted
+

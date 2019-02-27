@@ -1,0 +1,27 @@
+---
+# file roles/certbot/tasks/certbot_install_configure.yml
+- name: ensure apt managment package is installed
+  become: true
+  apt:
+          name: software-properties-common
+- name: ensure ppa for certbot is installed first
+  become: true
+  apt_repository:
+          repo: 'ppa:certbot/certbot'
+- name: ensure letsencrypt modules are installed
+  become: true
+  apt:
+          name: python-certbot-nginx
+          update_cache: yes
+- name: Ensure nginx is stopped trickery
+  become: true
+  command: systemctl stop nginx
+  args:
+          creates: "/etc/letsencrypt/live/{{ hostname }}_{{ domainname }}/fullchain.pem"
+- name: Obtain certificates
+  become: true
+  command: certbot certonly -d "{{ ssl_domains }}" --cert-name  "{{ hostname }}_{{domainname}}" --standalone -n  --agree-tos -m "{{ email }}"
+  args:
+        creates: "/etc/letsencrypt/live/{{ hostname }}_{{ domainname }}/fullchain.pem"
+  notify: Restart nginx
+

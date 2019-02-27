@@ -1,0 +1,3 @@
+---
+# file roles/slurmctl/tasks/main.yml
+- include: slurmctl.yml

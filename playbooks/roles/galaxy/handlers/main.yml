@@ -1,0 +1,8 @@
+---
+# file roles/galaxy/handlers/main.yml
+- name: Restart autofs
+  become: true
+  systemd:
+          name: autofs
+          state: restarted
+

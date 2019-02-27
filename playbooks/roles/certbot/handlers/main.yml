@@ -1,0 +1,7 @@
+---
+# file roles/certbot/handlers/main.yml
+- name: Restart nginx
+  become: true
+  systemd:
+          name: nginx
+          state: restarted

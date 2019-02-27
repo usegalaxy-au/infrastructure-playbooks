@@ -1,0 +1,14 @@
+---
+# file roles/common/tasks/misc_pkgs.yml
+- name: Install miscellaneous packages on "{{ hostname }}"
+  become: true
+  apt:
+          name: "{{ packages }}"
+  vars:
+          packages:
+                  - screen
+                  - gawk
+                  - atop
+                  - git
+                  - cpanminus
+                  - libswitch-perl

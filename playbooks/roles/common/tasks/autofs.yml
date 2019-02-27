@@ -1,0 +1,11 @@
+---
+# file roles/common/tasks/autofs.yml
+- name: Install packages "nfs-common" and "autofs" on "{{ hostname }}"
+  become: true
+  apt:
+          name: "{{ packages }}"
+  vars:
+          packages:
+                  - nfs-common
+                  - autofs
+

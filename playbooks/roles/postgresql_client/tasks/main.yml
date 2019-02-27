@@ -1,0 +1,3 @@
+---
+# file roles/postgresql_client/tasks/main.yml
+- include: install_postgresql_client.yml

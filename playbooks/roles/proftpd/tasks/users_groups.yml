@@ -1,0 +1,28 @@
+---
+# file roles/proftpd/tasks/users_groups.yml
+- name: Create galaxy groups on "{{ hostname }}"
+  become: true
+  group:
+          name: "{{ galaxy_user[item.key] }}"
+          gid: "{{ galaxy_user_id[item.key] }}"
+  with_dict: "{{ ftp_dirs }}"
+- name: Make galaxy users on "{{ hostname }}"
+  become: true
+  user:
+          name: "{{ galaxy_user[item.key] }}"
+          comment: "{{ galaxy_user[item.key] }} Galaxy User"
+          uid: "{{ galaxy_user_id[item.key] }}"
+          group: "{{ galaxy_user[item.key] }}"
+          home: "/home/{{ galaxy_user[item.key] }}"
+          shell: /bin/bash
+  with_dict: "{{ ftp_dirs }}"
+- name: Make ftp root directory on "{{ hostname }}"
+  become: true
+  file:
+          path: "{{ item.value }}"
+          owner: "{{ galaxy_user[item.key] }}"
+          group: "{{ galaxy_user[item.key] }}"
+          mode: 0755
+          state: directory
+  with_dict: "{{ ftp_dirs }}"
+

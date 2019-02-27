@@ -1,0 +1,11 @@
+---
+# file roles/common/tasks/alt_tmp.yml
+- name: Create an alternative tmp directory in /mnt on "{{ hostname }}"
+  become: true
+  file:
+          dest: /mnt/tmp
+          state: directory
+          owner: root
+          group: root
+          mode: 01777
+

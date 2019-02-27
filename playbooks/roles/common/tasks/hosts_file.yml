@@ -1,0 +1,10 @@
+---
+# file: roles/common/tasks/hosts_file.yml
+- name: Copy hosts file to "{{ hostname }}"
+  become: true
+  template:
+          src: hosts.tpl
+          dest: /etc/hosts
+          mode: 0644
+          owner: root
+          group: root

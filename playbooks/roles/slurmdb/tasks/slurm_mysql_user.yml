@@ -1,0 +1,10 @@
+---
+# file roles/slurmdb/tasks/slurm_mysql_user.yml
+- name: Create slurm mysql user on "{{ hostname }}"
+  become: true
+  mysql_user:
+          name: "{{ mysql_slurm_user }}" 
+          host: "{{ hostname }}"
+          password: "{{ mysql_slurm_password }}"
+          priv: 'slurm_acct_db.*:ALL'
+          state: present

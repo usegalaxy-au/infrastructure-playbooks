@@ -1,0 +1,26 @@
+---
+# file roles/mysql/tasks/mysql.yml
+- name: Install mysql-server package on "{{ hostname }}"
+  become: true
+  apt:
+          name: "{{ packages }}"
+  vars:
+          packages:
+                  - mysql-server
+                  - python-mysqldb
+- name: Set mysql root user password on "{{ hostname }}"
+  become: true
+  mysql_user:
+          name: root
+          password: "{{ mysql_root_password }}"
+          check_implicit_admin: true
+          login_user: root
+  notify: Create root .my.cnf file
+- meta: flush_handlers
+- name: Bind mysql to public IP address on "{{ hostname }}"
+  become: true
+  template:
+          src: my.cnf.tpl
+          dest: /etc/mysql/my.cnf
+          mode: 0644
+  notify: Restart mysql

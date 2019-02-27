@@ -1,0 +1,14 @@
+---
+# file roles/galaxy/tasks/autofs.yml
+- name: Configure autofs
+  become: true
+  copy:
+          src: auto.master.cluster
+          dest: /etc/auto.master
+  notify: Restart autofs
+- name: Copy auto.ga-services file to "{{ hostname }}"
+  become: true
+  template:
+          src: auto.ga-services.www.tpl
+          dest: /etc/auto.ga-services
+  notify: Restart autofs

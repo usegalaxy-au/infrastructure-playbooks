@@ -1,0 +1,3 @@
+---
+# file roles/munge/tasks/main.yml
+- include: install_configure_munge.yml

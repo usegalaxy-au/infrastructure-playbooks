@@ -1,0 +1,4 @@
+---
+# file roles/nginx/tasks/main.yml
+- include: install_nginx.yml
+- include: configure_nginx.yml

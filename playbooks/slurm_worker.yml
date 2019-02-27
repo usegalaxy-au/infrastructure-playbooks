@@ -1,0 +1,12 @@
+---
+# file playbooks/slurm_worker.yml
+- hosts:
+        - galaxy-aust-w1
+  roles:
+          - common
+          - all_users_groups
+          - cvmfs
+          - cluster_autofs
+          - munge
+          - slurmd
+          - slurmclient
